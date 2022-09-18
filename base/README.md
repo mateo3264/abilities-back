@@ -156,6 +156,12 @@
   funcionalidad ambos)
 -Ir guardando en lista etc las habilidades repasadas en el día. Tal vez
  para repasar de nuevo aquellas categorizadas como dificiles
+-Permitir describir la emoción etc en cada repaso de habilidad
+ -Eg:
+ --Si fué emitida la respuesta cuando sentía (la estimulación)
+   parecía estar asociada a una baja probabilidad de dicha respuesta
+ --Fué rápida, cómo quisiera
+
  
 
 

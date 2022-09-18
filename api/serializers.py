@@ -26,7 +26,7 @@ class AbilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Ability
         depth = 1
-        fields = ('id', 'ability', 'n_times_reviewed', 'created_at', 'answers_set', 'topic')
+        fields = ('id', 'ability', 'n_times_reviewed', 'created_at', 'difficulty', 'answers_set', 'topic')
         
 class NTimesReviewedSerializer(serializers.ModelSerializer):
     

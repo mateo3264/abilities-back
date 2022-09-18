@@ -1,5 +1,6 @@
 from django.db import models
 import datetime 
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Topic(models.Model):
    topic = models.CharField(max_length=200, unique=True)
@@ -13,6 +14,7 @@ class Ability(models.Model):
     n_times_reviewed = models.IntegerField(default=0)
     topic = models.ForeignKey(Topic, on_delete=models.RESTRICT, default=1)
     created_at = models.DateTimeField(auto_now_add=True)
+    difficulty = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], default=5)
     def __str__(self):
         return self.ability
 
