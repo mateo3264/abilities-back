@@ -103,7 +103,8 @@ def getAbilitiesByTopic(request):
         
     #db_response = Ability.objects.filter(topic=id_topic, n_times_reviewed=0, id__in=random_indexes)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
     
-    db_response = Ability.objects.all().values('topic').annotate(n_abilities_by_topic=Count('topic'))#all().values('ability', 'created_at','topic','updated_at').aggregate(dcount=Count('topic'))#filter(created_at__date=str(timezone.now().date()))#order_by('n_times_reviewed', '-created_at__date')
+    #db_response = Ability.objects.all().values('topic').annotate(n_abilities_by_topic=Count('topic'))#all().values('ability', 'created_at','topic','updated_at').aggregate(dcount=Count('topic'))#filter(created_at__date=str(timezone.now().date()))#order_by('n_times_reviewed', '-created_at__date')
+    db_response = Ability.objects.filter(created_at__date__lte='2022-09-17').values('topic').annotate(n_abilities_by_topic=Count('topic'))#all().values('ability', 'created_at','topic','updated_at').aggregate(dcount=Count('topic'))#filter(created_at__date=str(timezone.now().date()))#order_by('n_times_reviewed', '-created_at__date')
     #serialized = AbilitySerializer(db_response, many=True)
     #print('type of serialized.data')
     #print(type(serialized))
@@ -126,7 +127,7 @@ def getPostData(request):
     # print('LLEEEGOOOOOO!!!!')
     # print(request.data)
     serialized = AbilitySerializer(data=request.data)
-
+    
     if serialized.is_valid():
         # print(request.data)#POST.get('saludo'))
         ability_reviewed = Reviewed(ability=Ability(id=request.data['id']), n_times_reviewed=request.data['n_times_reviewed'] + 1)#.objects.get(id=request.data['id'])
@@ -157,8 +158,9 @@ def getPostData(request):
 @api_view(['POST'])
 def getPostAbility(request):
     serialized = AbilitySerializer(data=request.data)
+    print('feature/choose-multiple-topics')
     if serialized.is_valid():
-        
+        print('yeah! inside')
         
         ab = Ability(ability=request.data['ability'])
         ab.save()
