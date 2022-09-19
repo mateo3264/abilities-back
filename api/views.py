@@ -124,8 +124,8 @@ def getAbilitiesReviewedToday(request):
     return Response({'success':'true'})
 @api_view(['POST'])
 def getPostData(request):
-    # print('LLEEEGOOOOOO!!!!')
-    # print(request.data)
+    print('LLEEEGOOOOOO!!!!')
+    print(request.data)
     serialized = AbilitySerializer(data=request.data)
     
     if serialized.is_valid():
@@ -134,6 +134,9 @@ def getPostData(request):
         ability_reviewed.save()
         ability = Ability.objects.get(id=request.data['id'])
         ability.n_times_reviewed += 1
+        print("request.data['difficulty']")
+        print(request.data['difficulty'])
+        ability.difficulty = request.data['difficulty']
         ability.save()
 
         today_count_reviewed_abilities = Reviewed.objects.values('updated_at__date').annotate(dcount=Count('id')).order_by('-updated_at__date')#.values('ability', 'updated_at')#.order_by('created_at__date')
