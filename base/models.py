@@ -9,12 +9,19 @@ class Topic(models.Model):
    def __str__(self):
     return self.topic
 
+class TypeOfAbility(models.Model):
+    type = models.CharField(max_length=200)
+    def __str__(self):
+        return self.type
+        
 class Ability(models.Model):
     ability = models.TextField()
     n_times_reviewed = models.IntegerField(default=0)
     topic = models.ForeignKey(Topic, on_delete=models.RESTRICT, default=1)
+    type = models.ForeignKey(TypeOfAbility, on_delete=models.RESTRICT, default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     difficulty = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], default=5)
+
     def __str__(self):
         return self.ability
 
