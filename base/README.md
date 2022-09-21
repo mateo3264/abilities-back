@@ -161,6 +161,25 @@
  --Si fué emitida la respuesta cuando sentía (la estimulación)
    parecía estar asociada a una baja probabilidad de dicha respuesta
  --Fué rápida, cómo quisiera
+-Al hacer arbol de conexiones se pueden hacer varias preguntas 
+ al usar diferentes niveles. 
+ -Eg:
+ --En cuestión de conexión entre el endpoint hasta el código
+   que retorna (o realiza la operación necesaria) pueden hacerse 
+   preguntas, o plantearse niveles como: describa los nodos en
+   las relaciones a partir del nivel de repositorio (se debe
+   nombrar los repositorios y el orden en el que se activan al llamar
+   al endpoint correspondiente); a nivel de archivos (se debe
+   nombrar los archivos y el orden en el que se activan al llamar
+   al endpoint correspondiente) o combinación de 2 o más niveles
+   (numerar los archivos y sus correspondientes repositorios relacionados
+   con el endpoint llamado)
+-automatic increment or decrement of difficulty based on performance 
+ in reviewing ability
+-Permitir un tipo de reestudio de la habilidad sencilla como la de mostrar
+ una foto de un ave (etc) y decir el nombre tal vez en cada presentación
+ difuminándolo. O aun más sencilla mostrando fotos con nombres comunes
+ para no tener que hacer la funcionalidad de difuminación
 
  
 

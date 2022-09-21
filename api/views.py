@@ -104,7 +104,9 @@ def getAbilitiesByTopic(request):
     #db_response = Ability.objects.filter(topic=id_topic, n_times_reviewed=0, id__in=random_indexes)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
     
     #db_response = Ability.objects.all().values('topic').annotate(n_abilities_by_topic=Count('topic'))#all().values('ability', 'created_at','topic','updated_at').aggregate(dcount=Count('topic'))#filter(created_at__date=str(timezone.now().date()))#order_by('n_times_reviewed', '-created_at__date')
-    db_response = Ability.objects.filter(created_at__date__lte='2022-09-17').values('topic').annotate(n_abilities_by_topic=Count('topic'))#all().values('ability', 'created_at','topic','updated_at').aggregate(dcount=Count('topic'))#filter(created_at__date=str(timezone.now().date()))#order_by('n_times_reviewed', '-created_at__date')
+    db_response = Ability.objects.filter(created_at__date__lte=timezone.now().date()).values('topic').annotate(n_abilities_by_topic=Count('topic'))#all().values('ability', 'created_at','topic','updated_at').aggregate(dcount=Count('topic'))#filter(created_at__date=str(timezone.now().date()))#order_by('n_times_reviewed', '-created_at__date')
+    #print(db_response)
+
     #serialized = AbilitySerializer(db_response, many=True)
     #print('type of serialized.data')
     #print(type(serialized))
@@ -124,8 +126,8 @@ def getAbilitiesReviewedToday(request):
     return Response({'success':'true'})
 @api_view(['POST'])
 def getPostData(request):
-    # print('LLEEEGOOOOOO!!!!')
-    # print(request.data)
+    print('LLEEEGOOOOOO!!!!')
+    print(request.data)
     serialized = AbilitySerializer(data=request.data)
     
     if serialized.is_valid():
@@ -134,6 +136,9 @@ def getPostData(request):
         ability_reviewed.save()
         ability = Ability.objects.get(id=request.data['id'])
         ability.n_times_reviewed += 1
+        print("request.data['difficulty']")
+        print(request.data['difficulty'])
+        ability.difficulty = request.data['difficulty']
         ability.save()
 
         today_count_reviewed_abilities = Reviewed.objects.values('updated_at__date').annotate(dcount=Count('id')).order_by('-updated_at__date')#.values('ability', 'updated_at')#.order_by('created_at__date')
@@ -158,7 +163,7 @@ def getPostData(request):
 @api_view(['POST'])
 def getPostAbility(request):
     serialized = AbilitySerializer(data=request.data)
-    print('feature/choose-multiple-topics')
+
     if serialized.is_valid():
         print('yeah! inside')
         
@@ -167,5 +172,6 @@ def getPostAbility(request):
         if request.data['answer'] != '':
             an = ab.answers_set.create(answer=request.data['answer'])
         ab.topic = Topic(id=request.data['selection'])
+        ab.difficulty = request.data['difficulty']
         ab.save()
     return Response({'success':'true'})
