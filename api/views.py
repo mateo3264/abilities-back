@@ -3,8 +3,8 @@
 #--Tal vez uniendo dos queryset en uno...
 #--Que la instancia del queryset sea una tabla compuesta
 #  por las 2 tablas 
-from base.models import Ability, AfterWhenToReview, Answers, Topic, Reviewed, MinimumAbilitiesReviewedPerDay
-from .serializers import AbilitySerializer, AnswersSerializer, NTimesReviewedSerializer, MinimumAbilitiesReviewedPerDaySerializer, TopicSerializer
+from base.models import Ability, AfterWhenToReview, Answers, Topic, Reviewed, MinimumAbilitiesReviewedPerDay, TypeOfAbility
+from .serializers import AbilitySerializer, AnswersSerializer, NTimesReviewedSerializer, MinimumAbilitiesReviewedPerDaySerializer, TopicSerializer, TypeOfAbilitySerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.db.models import Count, Sum
@@ -128,6 +128,15 @@ def getAbilitiesReviewedToday(request):
     abilities_reviewed_today = Reviewed.objects.annotate(dcount=Count('id')).values().order_by('-id')
     # print(abilities_reviewed_today)
     return Response({'success':'true'})
+
+
+@api_view(['GET'])
+def getTypesOfAbilities(request):
+    types_of_abilities = TypeOfAbility.objects.all()
+    serialized = TypeOfAbilitySerializer(types_of_abilities, many=True)
+
+    return Response(serialized.data)
+
 @api_view(['POST'])
 def getPostData(request):
     print('LLEEEGOOOOOO!!!!')
