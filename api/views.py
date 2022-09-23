@@ -186,5 +186,6 @@ def getPostAbility(request):
             an = ab.answers_set.create(answer=request.data['answer'])
         ab.topic = Topic(id=request.data['selection'])
         ab.difficulty = request.data['difficulty']
+        ab.type = TypeOfAbility(id=request.data['type'])
         ab.save()
     return Response({'success':'true'})
