@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import Ability, Answers, MinimumAbilitiesReviewedPerDay, Topic
+from base.models import Ability, Answers, MinimumAbilitiesReviewedPerDay, Topic, TypeOfAbility
 
 
 # class AbilitySerializer(serializers.ModelSerializer):
@@ -20,6 +20,13 @@ class TopicSerializer(serializers.ModelSerializer):
         model = Topic
         fields = ('id', 'topic')
 
+
+class TypeOfAbilitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TypeOfAbility
+        fields = ('id', 'type')
+
+        
 class AbilitySerializer(serializers.ModelSerializer):
     answers_set = AnswersSerializer(many=True, read_only=True)
     #topico = TopicSerializer(many=True, read_only=True)

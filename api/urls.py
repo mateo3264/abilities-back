@@ -11,5 +11,6 @@ urlpatterns = [
     path('minimum-number-of-abilities-reviewed-today/', views.getMinimumNumberOfAbilitiesReviewedToday, name='minimum-number-of-abilities-reviewed-today'),
     path('abilities-reviewed-today/', views.getAbilitiesReviewedToday, name='abilities-reviewed-today'),
     path('abilities-by-topic/', views.getAbilitiesByTopic, name='abilities-by-topic'),
+    path('types-of-abilities/', views.getTypesOfAbilities, name='types-of-abilities'),
     
 ]
