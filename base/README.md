@@ -180,6 +180,20 @@
  una foto de un ave (etc) y decir el nombre tal vez en cada presentación
  difuminándolo. O aun más sencilla mostrando fotos con nombres comunes
  para no tener que hacer la funcionalidad de difuminación
+-Poder colocar en un check button etc un anuncio que clasifique habilidad
+ en cuanto a si debe revisarse pq se presume que tiene errores
+-Poder colocar en un check button etc un anuncio que clasifique habilidad
+ en cuanto a si se quiere ahondar en este tema pq se presume que tiene errores
+-Permitir colocar que se hizo en el dia para tratar de explicar pq
+ ciertos días fueron muy productivos en términos de las metricas 
+ y otros no tantos etc. Tal vez al flotar encima de cada punto de la
+ métrica, obtener esa descripción de ese dia (fragmento de tiempo)
+-Permitir que un tipo de habilidad sea el de colocar conversaciones
+ o discusiones tal que se puedan añadir ante cada argumento una serie
+ de contraargumentos probables y de ahi continuar (tal vez con una
+ estructura de cliente servidor etc)
+
+ 
 
  
 
