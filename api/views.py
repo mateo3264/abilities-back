@@ -45,7 +45,11 @@ def getData(request, id_topic=None):
         # print('except')
         #db_response = Ability.objects.filter(n_times_reviewed=0, id__in=random_indexes)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
         #db_response = Ability.objects.all()#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-        db_response = Ability.objects.all().order_by('n_times_reviewed', '-created_at__date')[:50]
+        topics = Topic.objects.all()
+        print('random topic')
+        random_topic = Topic(id=random.randint(len(topics)))
+        print(random_topic)
+        db_response = Ability.objects.filter(topic=random_topic).order_by('n_times_reviewed', '-created_at__date')[:50]
     #print(type(db_response))
     #for ability in db_response:
         
