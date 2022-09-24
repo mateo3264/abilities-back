@@ -47,7 +47,7 @@ def getData(request, id_topic=None):
         #db_response = Ability.objects.all()#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
         topics = Topic.objects.all()
         print('random topic')
-        random_topic = Topic(id=random.randint(len(topics)))
+        random_topic = Topic(id=27)#Topic(id=random.randint(len(topics)))
         print(random_topic)
         db_response = Ability.objects.filter(topic=random_topic).order_by('n_times_reviewed', '-created_at__date')[:50]
     #print(type(db_response))
@@ -148,12 +148,14 @@ def getPostData(request):
         ability_reviewed = Reviewed(ability=Ability(id=request.data['id']), n_times_reviewed=request.data['n_times_reviewed'] + 1)#.objects.get(id=request.data['id'])
         ability_reviewed.save()
         ability = Ability.objects.get(id=request.data['id'])
-        ability.n_times_reviewed += 1
+        ability.n_times_reviewed = request.data['n_times_reviewed']
+        ability.answers_set.update(answer=request.data['answers_set'][0]['answer'][0])
+        ability.ability =request.data['ability']
         print("request.data['difficulty']")
         print(request.data['difficulty'])
         ability.difficulty = request.data['difficulty']
         ability.save()
-
+        
         today_count_reviewed_abilities = Reviewed.objects.values('updated_at__date').annotate(dcount=Count('id')).order_by('-updated_at__date')#.values('ability', 'updated_at')#.order_by('created_at__date')
         # print('today_count_reviewed_abilities[-1]')
         # print(today_count_reviewed_abilities[0]['dcount'])
