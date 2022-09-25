@@ -52,4 +52,11 @@ class MinimumAbilitiesReviewedPerDay(models.Model):
     datetime = models.DateField(auto_now_add=True)
     minimum_abilities_reviewed_per_day = models.IntegerField(default=3)
 
+class Diary(models.Model):
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.description
+
 
