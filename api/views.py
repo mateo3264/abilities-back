@@ -9,6 +9,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.db.models import Count, Sum
 from django.utils import timezone
+import csv
+
 
 import json
 from numpy import random
@@ -37,19 +39,84 @@ def getData(request, id_topic=None):
     #db_response = Ability.objects.filter(id__lte=12)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
     #db_response = Ability.objects.all()#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
     #db_response = Ability.objects.filter(topic=5)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-    random_indexes = choose_abilities1(100)
-    if id_topic is not None:
+    #random_indexes = choose_abilities1(100)
+    #if id_topic is not None:
         
-        db_response = Ability.objects.filter(topic=id_topic, n_times_reviewed=0, id__in=random_indexes)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-    else:
+     #   db_response = Ability.objects.filter(topic=id_topic, n_times_reviewed=0, id__in=random_indexes)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
+    #else:
         # print('except')
         #db_response = Ability.objects.filter(n_times_reviewed=0, id__in=random_indexes)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
         #db_response = Ability.objects.all()#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-        topics = Topic.objects.all()
-        print('random topic')
-        random_topic = Topic(id=27)#Topic(id=random.randint(len(topics)))
-        print(random_topic)
-        db_response = Ability.objects.filter(topic=random_topic).order_by('n_times_reviewed', '-created_at__date')[:50]
+    topics = Topic.objects.all()
+    print('random topic')
+
+    if True:
+            #r = random.randint(1, len(topics))
+            #random_topic = Topic(id=r)            
+            #print('random_topic')
+            #print(random_topic)
+            # print('r')
+            # print(r)
+            # print('Topic.objects.get(id=r).topic')
+            # topic = Topic.objects.get(id=r).topic
+            # print(topic)
+            # with open('api/csv_files/seen_topics.csv', 'a') as f:
+            #     writer = csv.writer(f)
+            #     writer.writerow(
+            #         [topic,str(r)],
+            #     )
+                
+            # #     print('reader')
+            # f.close()
+            excluded_topics = []
+            with open('api/csv_files/seen_topics.csv', newline='') as f:
+                reader = csv.reader(f)
+                print('rows')
+                for row in reader:
+                    try:
+                        print(int(row[-1]))
+                        excluded_topics.append(int(row[-1]))
+                    except:
+                        pass
+            f.close()
+            print('excluded_topics')
+            print(excluded_topics)
+            #excluded_topics = [x for x in range(1, 38) if x!=18]
+            print(excluded_topics)
+            random_topics = Topic.objects.exclude(id__in=excluded_topics)
+            print('random_topics')
+            print(random_topics)
+            r = random.randint(len(random_topics))
+            topic_choosen = random_topics[r]
+            print('topic_choosen')
+            print(topic_choosen)
+            print('sirve id?')
+            print(topic_choosen.id)
+            print(type(topic_choosen.id))
+            id = topic_choosen.id
+            with open('api/csv_files/seen_topics.csv', 'a') as f:
+                writer = csv.writer(f)
+                #topic = Topic.objects.get(id=id).topic
+                writer.writerow(
+                    [topic_choosen,str(id)],
+                )
+                
+            #     print('reader')
+            f.close()
+
+           
+            
+        #random_topic = Topic(id=1)
+        #random_topic = Topic(id=random.randint(1, len(topics)))
+        # day_of_month = int(str(timezone.now().date())[-2:])
+        # if day_of_month <= 7:
+        #     random_topic = Topic(id=1)
+        # elif 23 <= day_of_month:
+        #     random_topic = Topic(id=random.randint(len(topics)))
+       
+    
+        #print(random_topic)
+    db_response = Ability.objects.filter(topic=topic_choosen).order_by('n_times_reviewed', '-created_at__date')[:50]
     #print(type(db_response))
     #for ability in db_response:
         
@@ -139,7 +206,7 @@ def getTypesOfAbilities(request):
 
 @api_view(['GET'])
 def getDiaryData(request):
-    diary = Diary.objects.all()
+    diary = Diary.objects.all().order_by('created_at')
     serialized = DiarySerializer(diary, many=True)
     return Response(serialized.data)
 
@@ -155,10 +222,12 @@ def getPostData(request):
         ability_reviewed.save()
         ability = Ability.objects.get(id=request.data['id'])
         ability.n_times_reviewed = request.data['n_times_reviewed']
-        ability.answers_set.update(answer=request.data['answers_set'][0]['answer'][0])
+
+        ability.answer_correctness = request.data['answer_correctness']
+        ability.answers_set.update(answer='\n'.join(request.data['answers_set'][0]['answer']))
         ability.ability =request.data['ability']
-        print("request.data['difficulty']")
-        print(request.data['difficulty'])
+        print("request.data")
+        print(request.data)
         ability.difficulty = request.data['difficulty']
         ability.save()
         

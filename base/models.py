@@ -1,6 +1,7 @@
 from django.db import models
 import datetime 
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
 
 class Topic(models.Model):
    topic = models.CharField(max_length=200, unique=True)
@@ -21,7 +22,7 @@ class Ability(models.Model):
     type = models.ForeignKey(TypeOfAbility, on_delete=models.RESTRICT, default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     difficulty = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], default=5)
-
+    answer_correctness = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], null=True)
     def __str__(self):
         return self.ability
 
