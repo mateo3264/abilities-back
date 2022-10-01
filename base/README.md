@@ -192,9 +192,21 @@
  o discusiones tal que se puedan añadir ante cada argumento una serie
  de contraargumentos probables y de ahi continuar (tal vez con una
  estructura de cliente servidor etc)
-
- 
-
- 
-
-
+-FORMAS DE PRESENTAR HABILIDADES PARA EL REPASO
+--Permitir que sea el usuario el que elija el tópico a repasar
+--Permitir que sea el usuario el que elija el tópico a repasar pero
+  si este no elije entonces se muestra al azar
+--Mostrar solo los tópicos que no se han elegido. Reestablecer la posibilidad
+  de elegir cualquier tópico una vez todos se hayan visto
+---con y sin cambio según se repasaron todas las habilidades del tópico
+   o solo algunas
+--Mostrar solo los tópicos que no se han elegido o permitir que sea el
+  usuario el que elija el tópico a repasar
+---con y sin cambio según se repasaron todas las habilidades del tópico
+   o solo algunas
+--Mostrar solo los tópicos que no se han elegido o aquellos que contengan
+  habilidades introducidas en ese día
+---con y sin cambio según se repasaron todas las habilidades del tópico
+   o solo algunas
+-Si hay poca actividad en repaso entonces generar primero las menos repasadas
+ y más simples y/o rápidas para generar momentum conductual
