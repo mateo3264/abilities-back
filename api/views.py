@@ -49,7 +49,10 @@ def getData(request, id_topic=None):
         #db_response = Ability.objects.all()#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
     topics = Topic.objects.all()
     print('random topic')
-
+    print('topics')
+    print(topics)
+    print(len(topics))
+    
     if True:
             #r = random.randint(1, len(topics))
             #random_topic = Topic(id=r)            
@@ -69,19 +72,29 @@ def getData(request, id_topic=None):
             # #     print('reader')
             # f.close()
             excluded_topics = []
-            with open('api/csv_files/seen_topics.csv', newline='') as f:
-                reader = csv.reader(f)
-                print('rows')
-                for row in reader:
-                    try:
-                        print(int(row[-1]))
-                        excluded_topics.append(int(row[-1]))
-                    except:
-                        pass
-            f.close()
+            if len(topics) > 1:
+                
+                with open('api/csv_files/seen_topics.csv', newline='') as f:
+                    reader = csv.reader(f)
+                    print('rows')
+                    for row in reader:
+                        try:
+                            print(int(row[-1]))
+                            excluded_topics.append(int(row[-1]))
+                        except:
+                            pass
+                f.close()
             print('excluded_topics')
             print(excluded_topics)
             #excluded_topics = [x for x in range(1, 38) if x!=18]
+            if len(topics) == len(excluded_topics):
+                print('ENTERED?')
+                with open('api/csv_files/seen_topics.csv', 'w+', newline='') as f:
+                    writer = csv.writer(f)
+                    
+                f.close()
+                excluded_topics = []
+
             print(excluded_topics)
             random_topics = Topic.objects.exclude(id__in=excluded_topics)
             print('random_topics')
@@ -158,11 +171,16 @@ def getMetric(request, metric):
 
 @api_view(['GET'])
 def getMinimumNumberOfAbilitiesReviewedToday(request):
-    marpd = MinimumAbilitiesReviewedPerDay.objects.latest('datetime')
-    serialized = MinimumAbilitiesReviewedPerDaySerializer(marpd, many=False)
+    try:
+        marpd = MinimumAbilitiesReviewedPerDay.objects.latest('datetime')
+        serialized = MinimumAbilitiesReviewedPerDaySerializer(marpd, many=False)
+        return Response(serialized.data)
+    except:
+        print('Seems there is not data in MinimumAbilitiesReviewedPerDay table')
+        return Response({'status':'200'})
     # print('marpd')
     # print(serialized)
-    return Response(serialized.data)
+    
 
 
 
@@ -259,6 +277,7 @@ def getPostAbility(request):
         
         ab = Ability(ability=request.data['ability'])
         ab.save()
+        print('hasta aca?')
         if request.data['answer'] != '':
             an = ab.answers_set.create(answer=request.data['answer'])
         ab.topic = Topic(id=request.data['selection'])
