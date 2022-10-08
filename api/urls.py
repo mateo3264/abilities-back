@@ -13,5 +13,7 @@ urlpatterns = [
     path('abilities-by-topic/', views.getAbilitiesByTopic, name='abilities-by-topic'),
     path('types-of-abilities/', views.getTypesOfAbilities, name='types-of-abilities'),
     path('diary/', views.getDiaryData, name='get-diary-data'),
+    path('goals/', views.postGoals, name='post-goals'),
+    path('get-goals/', views.getGoals, name='get-goals')
     
 ]

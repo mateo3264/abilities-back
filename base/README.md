@@ -192,7 +192,7 @@
  o discusiones tal que se puedan añadir ante cada argumento una serie
  de contraargumentos probables y de ahi continuar (tal vez con una
  estructura de cliente servidor etc)
--FORMAS DE PRESENTAR HABILIDADES PARA EL REPASO
+-FORMAS DE PRESENTAR HABILIDADES PARA EL REPASO (INVERVENCIONES):
 --Permitir que sea el usuario el que elija el tópico a repasar
 --Permitir que sea el usuario el que elija el tópico a repasar pero
   si este no elije entonces se muestra al azar
@@ -208,5 +208,25 @@
   habilidades introducidas en ese día
 ---con y sin cambio según se repasaron todas las habilidades del tópico
    o solo algunas
+--Mostrar solo los tópicos que no se han elegido o aquellos que contengan
+  habilidades introducidas en ese día o  aquellas con fallos en la respuesta
+  <=7
 -Si hay poca actividad en repaso entonces generar primero las menos repasadas
  y más simples y/o rápidas para generar momentum conductual
+-Hacer paired test para intervenciones diferentes de la app de habilidades
+-Permitir programar la hora o rango del día para repasar habilidades de    tópicos específicos. eg a mi me interesaría repasar habilidades relacionadas
+con lo que estoy viendo en el trabajo en la mañana. Tambien me interesaría
+repasar en la tarde noche habilidades que catalogo como difíciles y que introduje en el día 
+-Preguntarle al usuario el gusto que siente cuando aparece x tópico. eg
+ yo no me siento muy bien cuando aparece kubernetes. Así el programa
+ puede aplicar momentum conductual, decirle que estudie más de ese tema,
+ presentar menos habilidades para repasar etc. y preguntar después de
+ la intervención lo mismo para ver si hubo mejoría o no. Hay métricas
+ que pueden estimar esto mismo sin que el usuario califique su emoción
+ frente al tópico, eg si salta el tópico, o solo ve unos cuantos o
+ promedio etc de errores en ese tópico etc. (saltar el tópico no sirve 
+ tanto, creo, cuando tiene que verlo antes de pasar a otro)
+
+-Encontrar api etc que permita generar problemas matemáticos con
+ x características. eg: Encontrar la chernoff bound de una 
+ distribución normal estandard

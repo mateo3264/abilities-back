@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import Ability, Answers, Diary, MinimumAbilitiesReviewedPerDay, Topic, TypeOfAbility
+from base.models import Ability, Answers, Diary, MinimumAbilitiesReviewedPerDay, Topic, TypeOfAbility, Goal
 
 
 # class AbilitySerializer(serializers.ModelSerializer):
@@ -51,3 +51,8 @@ class DiarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Diary
         fields = '__all__'
+
+class GoalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Goal 
+        fields = ('goal',)
