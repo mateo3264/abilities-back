@@ -3,12 +3,14 @@
 #--Tal vez uniendo dos queryset en uno...
 #--Que la instancia del queryset sea una tabla compuesta
 #  por las 2 tablas 
-from base.models import Ability, AfterWhenToReview, Answers, Topic, Reviewed, MinimumAbilitiesReviewedPerDay, TypeOfAbility, Diary
-from .serializers import AbilitySerializer, AnswersSerializer, DiarySerializer, NTimesReviewedSerializer, MinimumAbilitiesReviewedPerDaySerializer, TopicSerializer, TypeOfAbilitySerializer
+from base.models import Ability, AfterWhenToReview, Answers, Topic, Reviewed, MinimumAbilitiesReviewedPerDay, TypeOfAbility, Diary, Goal
+from .serializers import AbilitySerializer, AnswersSerializer, DiarySerializer, GoalSerializer, NTimesReviewedSerializer, MinimumAbilitiesReviewedPerDaySerializer, TopicSerializer, TypeOfAbilitySerializer, GoalSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.db.models import Count, Sum
 from django.utils import timezone
+from rest_framework.renderers import JSONRenderer
+import json
 import csv
 
 
@@ -86,8 +88,8 @@ def getData(request, id_topic=None):
                 f.close()
             print('excluded_topics')
             print(excluded_topics)
-            #excluded_topics = [x for x in range(1, 38) if x!=18]
-            if len(topics) == len(excluded_topics):
+            #excluded_topics = [x for x in range(1, 38) if x!=16]
+            if len(topics) <= len(excluded_topics):
                 print('ENTERED?')
                 with open('api/csv_files/seen_topics.csv', 'w+', newline='') as f:
                     writer = csv.writer(f)
@@ -107,7 +109,7 @@ def getData(request, id_topic=None):
             print(topic_choosen.id)
             print(type(topic_choosen.id))
             id = topic_choosen.id
-            with open('api/csv_files/seen_topics.csv', 'a') as f:
+            with open('api/csv_files/seen_topics.csv', 'a', newline='') as f:
                 writer = csv.writer(f)
                 #topic = Topic.objects.get(id=id).topic
                 writer.writerow(
@@ -166,7 +168,8 @@ def getMetric(request, metric):
        metric = Reviewed.objects.values('updated_at__date').annotate(dcount=Count('id')).order_by('updated_at__date')#.values('ability', 'updated_at')#.order_by('created_at__date')
     #    print('metriiiiic')
     #    print(metric)
-    
+    print('metric')
+    print(metric)
     return Response({'metric':metric})
 
 @api_view(['GET'])
@@ -228,6 +231,8 @@ def getDiaryData(request):
     serialized = DiarySerializer(diary, many=True)
     return Response(serialized.data)
 
+
+
 @api_view(['POST'])
 def getPostData(request):
     print('LLEEEGOOOOOO!!!!')
@@ -285,3 +290,26 @@ def getPostAbility(request):
         ab.type = TypeOfAbility(id=request.data['type'])
         ab.save()
     return Response({'success':'true'})
+
+@api_view(['GET'])
+def getGoals(request):
+    g = Goal.objects.get(id=14)
+    print('type(g)')
+    print(type(g))
+    #serialized_goals = GoalSerializer(g)#, many=True) 
+    #content = JSONRenderer().render(serialized_goals.data)
+    print('content')
+    g = json.loads(g.goal.replace("'", '"'))
+    print(g)
+    print(type(g))
+    # g = dict(g)
+    # print(type(g))
+    return Response(g)
+
+@api_view(['POST'])
+def postGoals(request):
+    print('nada?')
+    print(request.data)
+    g = Goal(goal=request.data)
+    g.save()
+    return Response({"status":200})

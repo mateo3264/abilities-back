@@ -60,4 +60,9 @@ class Diary(models.Model):
     def __str__(self):
         return self.description
 
+class Goal(models.Model):
+    goal = models.TextField()
+    updated_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.goal
