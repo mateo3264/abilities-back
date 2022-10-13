@@ -230,3 +230,24 @@ repasar en la tarde noche habilidades que catalogo como difíciles y que introdu
 -Encontrar api etc que permita generar problemas matemáticos con
  x características. eg: Encontrar la chernoff bound de una 
  distribución normal estandard
+
+-Resolver el problema de como borrar una habilidad pero manteniendo
+ la misma en algun sitio tal que la historia de esa habilidad 
+ (por ejemplo cuando se presentó etc) no se quede sin saber
+ qué habilidad fue la que se presentó. Una idea sería duplicar
+ la tabla y que los registros de las tablas con historia asociada
+ a esa habilidad esten conectada a esa tabla duplicada (con menos
+ info tal vez)
+
+-Hacer radar (o algun gráfico relevante) que permita ver el promedio
+ de lo correcto en cada tópico
+
+-Permitir acceder a la página de gráficas al completar de repasar todas
+ las habilidades en 0 veces repasadas
+
+-Tener un calendario que permita visualizar lo que me propuse hacer 
+ en el día. 
+--Medir procrastinación de tareas
+-Permitir registrar o tener en cuenta refuerzo o castigo al ver una
+ habilidad a repasar porqué algunas como las de kubernetes no las contesto
+ y otras como las de game b en horario de trabajo no siempre me gusta verlas. 

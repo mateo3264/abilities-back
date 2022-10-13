@@ -23,6 +23,8 @@ class Ability(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     difficulty = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], default=5)
     answer_correctness = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)], null=True)
+    last_presentation_at = models.DateTimeField(auto_now_add=True)
+    days_to_present_again = models.PositiveSmallIntegerField(default=0)
     def __str__(self):
         return self.ability
 
@@ -66,3 +68,23 @@ class Goal(models.Model):
 
     def __str__(self):
         return self.goal
+
+
+class ScheduleAbilities(models.Model):
+    ability = models.ForeignKey(Ability, on_delete=models.CASCADE)
+    presented_at = models.DateTimeField(auto_now_add=True)
+    days_to_present_again = models.PositiveSmallIntegerField(default=0)
+
+    def __str__(self):
+        return self.ability.ability
+
+class ScheduleAbilitiesHistory(models.Model):
+    ability = models.ForeignKey(Ability, on_delete=models.DO_NOTHING)
+    presented_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.ability
+    
+    class Meta:
+        get_latest_by = 'presented_at'
+
