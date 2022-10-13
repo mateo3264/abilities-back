@@ -3,7 +3,7 @@
 #--Tal vez uniendo dos queryset en uno...
 #--Que la instancia del queryset sea una tabla compuesta
 #  por las 2 tablas 
-from base.models import Ability, AfterWhenToReview, Answers, Topic, Reviewed, MinimumAbilitiesReviewedPerDay, TypeOfAbility, Diary, Goal
+from base.models import Ability, AfterWhenToReview, Answers, ScheduleAbilities, Topic, Reviewed, MinimumAbilitiesReviewedPerDay, TypeOfAbility, Diary, Goal
 from .serializers import AbilitySerializer, AnswersSerializer, DiarySerializer, GoalSerializer, NTimesReviewedSerializer, MinimumAbilitiesReviewedPerDaySerializer, TopicSerializer, TypeOfAbilitySerializer, GoalSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -12,7 +12,8 @@ from django.utils import timezone
 from rest_framework.renderers import JSONRenderer
 import json
 import csv
-
+from .ways_to_present_abilities.ways_to_present_abilities import *#get_topics_at_random_with_memory
+import datetime 
 
 import json
 from numpy import random
@@ -34,125 +35,16 @@ def getTopics(request):
 
 @api_view(['GET'])
 def getData(request, id_topic=None):
-
-    #db_response = Answers.objects.select_related('ability')#.values('ability', 'n_times_reviewed', 'answers')
-    #db_response = Answers.objects.select_related('ability')#.values('ability', 'n_times_reviewed', 'answers')
-    #db_response = Ability.objects.filter(topic=2)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-    #db_response = Ability.objects.filter(id__lte=12)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-    #db_response = Ability.objects.all()#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-    #db_response = Ability.objects.filter(topic=5)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-    #random_indexes = choose_abilities1(100)
-    #if id_topic is not None:
-        
-     #   db_response = Ability.objects.filter(topic=id_topic, n_times_reviewed=0, id__in=random_indexes)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-    #else:
-        # print('except')
-        #db_response = Ability.objects.filter(n_times_reviewed=0, id__in=random_indexes)#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-        #db_response = Ability.objects.all()#.filter(id=2)#.values('ability', 'n_times_reviewed', 'answers')
-    topics = Topic.objects.all()
-    print('random topic')
-    print('topics')
-    print(topics)
-    print(len(topics))
+    print('timezone.now().date() timedelta(days=3)')
+    print(timezone.now().date() + datetime.timedelta(days=3))
+    print('timezone.now().time()')
     
-    if True:
-            #r = random.randint(1, len(topics))
-            #random_topic = Topic(id=r)            
-            #print('random_topic')
-            #print(random_topic)
-            # print('r')
-            # print(r)
-            # print('Topic.objects.get(id=r).topic')
-            # topic = Topic.objects.get(id=r).topic
-            # print(topic)
-            # with open('api/csv_files/seen_topics.csv', 'a') as f:
-            #     writer = csv.writer(f)
-            #     writer.writerow(
-            #         [topic,str(r)],
-            #     )
-                
-            # #     print('reader')
-            # f.close()
-            excluded_topics = []
-            if len(topics) > 1:
-                
-                with open('api/csv_files/seen_topics.csv', newline='') as f:
-                    reader = csv.reader(f)
-                    print('rows')
-                    for row in reader:
-                        try:
-                            print(int(row[-1]))
-                            excluded_topics.append(int(row[-1]))
-                        except:
-                            pass
-                f.close()
-            print('excluded_topics')
-            print(excluded_topics)
-            #excluded_topics = [x for x in range(1, 38) if x!=16]
-            if len(topics) <= len(excluded_topics):
-                print('ENTERED?')
-                with open('api/csv_files/seen_topics.csv', 'w+', newline='') as f:
-                    writer = csv.writer(f)
-                    
-                f.close()
-                excluded_topics = []
-
-            print(excluded_topics)
-            random_topics = Topic.objects.exclude(id__in=excluded_topics)
-            print('random_topics')
-            print(random_topics)
-            r = random.randint(len(random_topics))
-            topic_choosen = random_topics[r]
-            print('topic_choosen')
-            print(topic_choosen)
-            print('sirve id?')
-            print(topic_choosen.id)
-            print(type(topic_choosen.id))
-            id = topic_choosen.id
-            with open('api/csv_files/seen_topics.csv', 'a', newline='') as f:
-                writer = csv.writer(f)
-                #topic = Topic.objects.get(id=id).topic
-                writer.writerow(
-                    [topic_choosen,str(id)],
-                )
-                
-            #     print('reader')
-            f.close()
-
-           
-            
-        #random_topic = Topic(id=1)
-        #random_topic = Topic(id=random.randint(1, len(topics)))
-        # day_of_month = int(str(timezone.now().date())[-2:])
-        # if day_of_month <= 7:
-        #     random_topic = Topic(id=1)
-        # elif 23 <= day_of_month:
-        #     random_topic = Topic(id=random.randint(len(topics)))
-       
-    
-        #print(random_topic)
-    db_response = Ability.objects.filter(topic=topic_choosen).order_by('n_times_reviewed', '-created_at__date')[:50]
-    #print(type(db_response))
-    #for ability in db_response:
-        
-     #   print(ability, ability.n_times_reviewed)
-    #print(type(QuerySet(list(db_response))))
-    #print(list(db_response))
-    #print('respuesta')
-    #print(type(db_response[0]))
-    #print(db_response.answers_set.all())
-    # print(db_response[0])
-    # print(db_response[0].ability.ability)
-    # print(db_response[0].ability.n_times_reviewed)
-    # print(db_response[0].answer)
-    # print(type(db_response[0]))
-    #print(db_response.ability)
-    #print('tipo de datito')
-    #print(type(db_response))
-    #print(help(AbilitySerializer))
+    #TODO:Aquí va el bandit para elegir entre distintas formas de presentar
+    # habilidades
+    #db_response = get_topics_at_random_with_memory()
+    db_response = get_abilities_by_schedule2()
     serialized = AbilitySerializer(db_response, many=True)
-    # print('type of serialized.data')
-    # print(type(serialized))
+
     return Response(serialized.data)
 
 @api_view(['GET'])
@@ -235,12 +127,12 @@ def getDiaryData(request):
 
 @api_view(['POST'])
 def getPostData(request):
-    print('LLEEEGOOOOOO!!!!')
-    print(request.data)
+    
     serialized = AbilitySerializer(data=request.data)
     
     if serialized.is_valid():
         # print(request.data)#POST.get('saludo'))
+        
         ability_reviewed = Reviewed(ability=Ability(id=request.data['id']), n_times_reviewed=request.data['n_times_reviewed'] + 1)#.objects.get(id=request.data['id'])
         ability_reviewed.save()
         ability = Ability.objects.get(id=request.data['id'])
@@ -251,9 +143,39 @@ def getPostData(request):
         ability.ability =request.data['ability']
         print("request.data")
         print(request.data)
+        print('ability.days_to_present_again')
+        print(ability.days_to_present_again)
         ability.difficulty = request.data['difficulty']
+        try:
+            if request.data['answer_correctness'] > 7:
+                fib_seq = string_to_list()
+                idx_actual_fib_number = fib_seq.index(ability.days_to_present_again)
+                if idx_actual_fib_number < len(fib_seq) - 1:
+                    print('before')
+                    print('ability.days_to_present_again')
+                    print(ability.days_to_present_again)
+                    ability.days_to_present_again = fib_seq[idx_actual_fib_number + 1]
+                    print('after')
+                    print('ability.days_to_present_again')
+                    print(ability.days_to_present_again)
+            elif request.data['answer_correctness'] < 4:
+                print('Tuvo una calificación <= 4 de la respuesta')
+                fib_seq = string_to_list()
+                idx_actual_fib_number = fib_seq.index(ability.days_to_present_again)
+                if idx_actual_fib_number > 0:
+                    print('before')
+                    print('ability.days_to_present_again')
+                    print(ability.days_to_present_again)
+                    ability.days_to_present_again = fib_seq[idx_actual_fib_number - 1]
+                    print('after')
+                    print('ability.days_to_present_again')
+                    print(ability.days_to_present_again)
+        except:
+            print('seems like is comming from edit section :)')
+
         ability.save()
         
+
         today_count_reviewed_abilities = Reviewed.objects.values('updated_at__date').annotate(dcount=Count('id')).order_by('-updated_at__date')#.values('ability', 'updated_at')#.order_by('created_at__date')
         # print('today_count_reviewed_abilities[-1]')
         # print(today_count_reviewed_abilities[0]['dcount'])
@@ -289,11 +211,14 @@ def getPostAbility(request):
         ab.difficulty = request.data['difficulty']
         ab.type = TypeOfAbility(id=request.data['type'])
         ab.save()
+
+        #sa = ScheduleAbilities(ability=Ability(id=ab.id), presented_at=None)
+        #sa.save()
     return Response({'success':'true'})
 
 @api_view(['GET'])
 def getGoals(request):
-    g = Goal.objects.get(id=14)
+    g = Goal.objects.get(id=15)
     print('type(g)')
     print(type(g))
     #serialized_goals = GoalSerializer(g)#, many=True) 
