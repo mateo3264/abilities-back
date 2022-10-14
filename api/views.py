@@ -238,3 +238,19 @@ def postGoals(request):
     g = Goal(goal=request.data)
     g.save()
     return Response({"status":200})
+
+
+@api_view(['POST'])
+def postInDiary(request):
+    last_day = Diary.objects.last()
+    if last_day.created_at.date() == timezone.now().date():
+        last_day.description += request.data['description']
+        last_day.save()
+    #print(request.data)
+    
+    #print(type(last_day))
+    else:
+        diary = Diary(description=request.data['description'])
+        #last_day.description += request.data['description']
+        diary.save()
+    return Response({'status':'200 OK'})
