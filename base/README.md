@@ -251,3 +251,17 @@ repasar en la tarde noche habilidades que catalogo como difíciles y que introdu
 -Permitir registrar o tener en cuenta refuerzo o castigo al ver una
  habilidad a repasar porqué algunas como las de kubernetes no las contesto
  y otras como las de game b en horario de trabajo no siempre me gusta verlas. 
+-Posibles opciones de brazos del Bandit
+--Número de abilities para repasar
+--Ordenar a partir de las más recientes a las menos o a las más antiguas. Al azar
+--Solo un tema, varios temas, todos los temas
+
+-Reforzar:
+--repasar abilities más lejanas en el tiempo (se tiene que llegar a ellas pasando
+  primero por las más cercanas)
+--Número de tópicos repasados
+--Cuántas horas (o tiempo) debe pasar desde que se añade una habilidad, para que
+  esta pueda salir para repaso
+
+-Controlar que si se presentó una ability y se repaso incorrectamente entonces
+ no presentarla sino hasta x # de horas

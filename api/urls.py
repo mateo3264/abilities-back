@@ -16,5 +16,6 @@ urlpatterns = [
     path('goals/', views.postGoals, name='post-goals'),
     path('get-goals/', views.getGoals, name='get-goals'),
     path('post-in-diary/', views.postInDiary, name='post-in-diary'),
+    path('add-topic/', views.addTopic, name='add-topic'),
     
 ]

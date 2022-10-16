@@ -218,7 +218,7 @@ def getPostAbility(request):
 
 @api_view(['GET'])
 def getGoals(request):
-    g = Goal.objects.get(id=15)
+    g = Goal.objects.get(id=16)
     print('type(g)')
     print(type(g))
     #serialized_goals = GoalSerializer(g)#, many=True) 
@@ -251,6 +251,20 @@ def postInDiary(request):
     #print(type(last_day))
     else:
         diary = Diary(description=request.data['description'])
+        print("request.data['datetime']")
+        datetime_received = datetime.datetime.strptime(' '.join(request.data['datetime'][:-5].split('T')), '%Y-%m-%d %H:%M:%S')
+        datetime_received = datetime_received - datetime.timedelta(hours=5)
+        print(datetime_received)
+        print(datetime_received - datetime.timedelta(hours=5))
+        diary.created_at = datetime_received#datetime.datetime.strptime(request.data['datetime'])
         #last_day.description += request.data['description']
         diary.save()
     return Response({'status':'200 OK'})
+
+@api_view(['POST'])
+def addTopic(request):
+    t = Topic(topic=request.data['new_topic'])
+    print(request.data['new_topic'])
+    t.save()
+
+    return Response({'status':'200'})

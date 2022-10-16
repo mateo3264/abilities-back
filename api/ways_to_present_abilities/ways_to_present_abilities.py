@@ -104,13 +104,13 @@ def get_abilities_by_schedule2():
     print('fib_seq')
     print(fib_seq)
     print(type(fib_seq))
-    all_abilities = Ability.objects.all()
+    all_abilities = Ability.objects.all().order_by('-created_at', 'days_to_present_again')
     now = timezone.now()#.date()
     ids_of_abilities_to_present = []
     show_unanswered_questions = random.random() < 0.7
     for a in all_abilities:
         schedule_for_ability = a.last_presentation_at + timedelta(a.days_to_present_again)
-        schedule_for_ability = schedule_for_ability
+        #schedule_for_ability = schedule_for_ability
         # print('now')
         # print(now)
         # print('schedule_for_ability')
@@ -126,7 +126,7 @@ def get_abilities_by_schedule2():
             #print(30*'*')
             #print('a.answers_set.all()[0].answer')
             #print(a.answers_set.all()[0].answer)
-            if show_unanswered_questions:
+            if not show_unanswered_questions:
                 try:
                     algo = a.answers_set.all()[0].answer
                     #print(a.id, a.ability, a.last_presentation_at, a.days_to_present_again, a.answers_set.all()[0].answer)
@@ -138,8 +138,8 @@ def get_abilities_by_schedule2():
             else:
                 ids_of_abilities_to_present.append(a.id)
 
-    abilities_to_present = Ability.objects.filter(id__in=ids_of_abilities_to_present).order_by('n_times_reviewed')[:50]
-
+    abilities_to_present = Ability.objects.filter(id__in=ids_of_abilities_to_present).order_by('-created_at', 'days_to_present_again')[:50]
+    print(abilities_to_present)
     abilities_to_schedule_history = []
     ##Añade a ScheduleAbilitiesHistory la habilidad presentada
     # try:
