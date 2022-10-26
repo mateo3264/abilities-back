@@ -46,7 +46,7 @@ class Reviewed(models.Model):
     ability = models.ForeignKey(Ability, on_delete=models.DO_NOTHING)
     n_times_reviewed = models.IntegerField(default=0)
     updated_at = models.DateTimeField(auto_now_add=True)
-
+    
     def __str__(self):
         return self.ability.ability
 
@@ -87,4 +87,12 @@ class ScheduleAbilitiesHistory(models.Model):
     
     class Meta:
         get_latest_by = 'presented_at'
+
+class TimeStudyingTopic(models.Model):
+    topics = models.ManyToManyField(Topic)
+    time_in_minutes = models.PositiveSmallIntegerField(default=None)
+
+    def __str__(self):
+        return self.time_in_minutes
+
 
