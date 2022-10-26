@@ -3,8 +3,8 @@
 #--Tal vez uniendo dos queryset en uno...
 #--Que la instancia del queryset sea una tabla compuesta
 #  por las 2 tablas 
-from base.models import Ability, AfterWhenToReview, Answers, ScheduleAbilities, Topic, Reviewed, MinimumAbilitiesReviewedPerDay, TypeOfAbility, Diary, Goal
-from .serializers import AbilitySerializer, AnswersSerializer, DiarySerializer, GoalSerializer, NTimesReviewedSerializer, MinimumAbilitiesReviewedPerDaySerializer, TopicSerializer, TypeOfAbilitySerializer, GoalSerializer
+from base.models import Ability, AfterWhenToReview, Answers, ScheduleAbilities, Topic, Reviewed, MinimumAbilitiesReviewedPerDay, TypeOfAbility, Diary, Goal, TimeStudyingTopic
+from .serializers import AbilitySerializer, AnswersSerializer, DiarySerializer, GoalSerializer, NTimesReviewedSerializer, MinimumAbilitiesReviewedPerDaySerializer, TopicSerializer, TypeOfAbilitySerializer, GoalSerializer, TimeStudyingTopicSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.db.models import Count, Sum
