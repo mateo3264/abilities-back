@@ -93,6 +93,6 @@ class TimeStudyingTopic(models.Model):
     time_in_minutes = models.PositiveSmallIntegerField(default=None)
 
     def __str__(self):
-        return self.time_in_minutes
+        return str(self.time_in_minutes)
 
 
