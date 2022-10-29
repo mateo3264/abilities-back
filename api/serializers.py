@@ -19,7 +19,7 @@ class AnswersSerializer(serializers.ModelSerializer):
 class TimeStudyingTopicSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeStudyingTopic
-        fields = ('topics', 'time_in_minutes')
+        fields = ('topics', 'time_in_minutes', 'description')
         
 class TopicSerializer(serializers.ModelSerializer):
     class Meta:

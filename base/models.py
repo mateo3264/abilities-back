@@ -91,6 +91,8 @@ class ScheduleAbilitiesHistory(models.Model):
 class TimeStudyingTopic(models.Model):
     topics = models.ManyToManyField(Topic)
     time_in_minutes = models.PositiveSmallIntegerField(default=None)
+    timestamp = models.DateTimeField(default=timezone.now)
+    description = models.TextField(default='')
 
     def __str__(self):
         return str(self.time_in_minutes)
