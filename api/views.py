@@ -286,6 +286,7 @@ def addTopic(request):
 
 @api_view(['GET'])
 def getStudiedTimeToday(request):
+    
     queryset = TimeStudyingTopic.objects.filter(timestamp__date=timezone.now().date(), topics=24)#.aggregate(total_minutes_studied=Count('time_in_minutes'))#.annotate(Count('time_in_minutes', distinct=True))#
     print(queryset)
     print(type(queryset))
@@ -298,7 +299,9 @@ def getStudiedTimeToday(request):
 
 
 @api_view(['POST'])
-def addTimeStudyingTopic(request):
+def addTimeStudiedTopic(request):
+    print('request.data')
+    print(request.data) 
     print('something')
     studied_topics = Topic.objects.filter(id__in=request.data['topics'])
     print(studied_topics)
