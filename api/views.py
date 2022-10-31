@@ -172,11 +172,15 @@ def getPostData(request):
                     print(ability.days_to_present_again)
         except:
             print('seems like is comming from edit section :)')
+        
+        ability.last_presentation_at = timezone.now()
 
         ability.save()
         
 
         today_count_reviewed_abilities = Reviewed.objects.values('updated_at__date').annotate(dcount=Count('id')).order_by('-updated_at__date')#.values('ability', 'updated_at')#.order_by('created_at__date')
+
+
         # print('today_count_reviewed_abilities[-1]')
         # print(today_count_reviewed_abilities[0]['dcount'])
         # print(ability_reviewed)
@@ -279,3 +283,31 @@ def addTopic(request):
     t.save()
 
     return Response({'status':'200'})
+
+@api_view(['GET'])
+def getStudiedTimeToday(request):
+    queryset = TimeStudyingTopic.objects.filter(timestamp__date=timezone.now().date(), topics=24)#.aggregate(total_minutes_studied=Count('time_in_minutes'))#.annotate(Count('time_in_minutes', distinct=True))#
+    print(queryset)
+    print(type(queryset))
+    tsts = queryset.aggregate(total_minutes_studied=Sum('time_in_minutes'))
+#    tsts = TimeStudyingTopic.objects.aggregate(time_studied=Sum('topics'))
+    print(tsts)
+    print(type(tsts))
+    serialized = TimeStudyingTopicSerializer(tsts, many=True)
+    return Response(tsts)#serialized.data)
+
+
+@api_view(['POST'])
+def addTimeStudyingTopic(request):
+    print('something')
+    studied_topics = Topic.objects.filter(id__in=request.data['topics'])
+    print(studied_topics)
+    tst = TimeStudyingTopic(time_in_minutes=request.data['time_in_minutes'])
+    tst.save()
+    tst.topics.add(*studied_topics)
+    tst.description = request.data['description']
+    tst.save()
+    serialized = TimeStudyingTopicSerializer(data=request.data)
+    if serialized.is_valid():
+        return Response({'status':'200', 'data_posted':serialized.data})
+    return Response({'status':'500'})
