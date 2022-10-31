@@ -243,13 +243,24 @@ def postGoals(request):
 @api_view(['POST'])
 def postInDiary(request):
     last_day = Diary.objects.last()
-    if last_day.created_at.date() == timezone.now().date():
-        last_day.description += request.data['description']
-        last_day.save()
-    #print(request.data)
+    try:
+        if last_day.created_at.date() == timezone.now().date():
+            last_day.description += request.data['description']
+            last_day.save()
+        else:
+            diary = Diary(description=request.data['description'])
+            print("request.data['datetime']")
+            datetime_received = datetime.datetime.strptime(' '.join(request.data['datetime'][:-5].split('T')), '%Y-%m-%d %H:%M:%S')
+            datetime_received = datetime_received - datetime.timedelta(hours=5)
+            print(datetime_received)
+            print(datetime_received - datetime.timedelta(hours=5))
+            diary.created_at = datetime_received#datetime.datetime.strptime(request.data['datetime'])
+            #last_day.description += request.data['description']
+            diary.save()
+        #print(request.data)
     
     #print(type(last_day))
-    else:
+    except:
         diary = Diary(description=request.data['description'])
         print("request.data['datetime']")
         datetime_received = datetime.datetime.strptime(' '.join(request.data['datetime'][:-5].split('T')), '%Y-%m-%d %H:%M:%S')
