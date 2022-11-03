@@ -18,6 +18,8 @@ import datetime
 import json
 from numpy import random
 
+from api import serializers
+
 def choose_abilities1(n_total_abilities):
     n_abilities = random.randint(5, 25)
     # print('n_abilities to present')
@@ -117,11 +119,7 @@ def getTypesOfAbilities(request):
 
     return Response(serialized.data)
 
-@api_view(['GET'])
-def getDiaryData(request):
-    diary = Diary.objects.all().order_by('created_at')
-    serialized = DiarySerializer(diary, many=True)
-    return Response(serialized.data)
+
 
 
 
@@ -132,9 +130,17 @@ def getPostData(request):
     
     if serialized.is_valid():
         # print(request.data)#POST.get('saludo'))
-        
-        ability_reviewed = Reviewed(ability=Ability(id=request.data['id']), n_times_reviewed=request.data['n_times_reviewed'] + 1)#.objects.get(id=request.data['id'])
+        ab = Reviewed(ability=Ability(id=request.data['id']))
+        print('ab.n_times_reviewed before')
+        print(ab.n_times_reviewed)
+        print('n_times_reviewed before', request.data['n_times_reviewed'])
+        n_times_reviewed = request.data['n_times_reviewed'] + 1
+        ability_reviewed = Reviewed(ability=Ability(id=request.data['id']), n_times_reviewed=n_times_reviewed)#.objects.get(id=request.data['id'])
+        print('n_times_reviewed after', n_times_reviewed)
         ability_reviewed.save()
+        ab = Reviewed(ability=Ability(id=request.data['id']))
+        print('ab.n_times_reviewed after')
+        print(ab.n_times_reviewed)
         ability = Ability.objects.get(id=request.data['id'])
         ability.n_times_reviewed = request.data['n_times_reviewed']
 
@@ -196,6 +202,8 @@ def getPostData(request):
         #if serialized.is_valid():
          #   print("ENTROOO")
         return Response({'ability': ability_reviewed.ability.ability, 'n_times_reviewed':ability_reviewed.n_times_reviewed,'n_reviewed_abilities_today':today_count_reviewed_abilities[0]['dcount']})
+    else:
+        print('invalid serializer so it')
     return Response({'error':'invalid request 400'})
 
 
@@ -222,7 +230,7 @@ def getPostAbility(request):
 
 @api_view(['GET'])
 def getGoals(request):
-    g = Goal.objects.get(id=16)
+    g = Goal.objects.last()#get(id=16)
     print('type(g)')
     print(type(g))
     #serialized_goals = GoalSerializer(g)#, many=True) 
@@ -243,7 +251,11 @@ def postGoals(request):
     g.save()
     return Response({"status":200})
 
-
+@api_view(['GET'])
+def getDiaryData(request):
+    diary = Diary.objects.all().order_by('created_at')
+    serialized = DiarySerializer(diary, many=True)
+    return Response(serialized.data)
 @api_view(['POST'])
 def postInDiary(request):
     last_day = Diary.objects.last()
@@ -274,8 +286,15 @@ def postInDiary(request):
         diary.created_at = datetime_received#datetime.datetime.strptime(request.data['datetime'])
         #last_day.description += request.data['description']
         diary.save()
-    return Response({'status':'200 OK'})
-
+    last_day = Diary.objects.last()#filter(created_at__date=timezone.now().date())
+    print('type(last_day)')
+    print(type(last_day))
+    print(last_day)
+    #serialized = DiarySerializer(data=last_day)
+    #if serialized.is_valid():
+     #   print('hasta aca?')
+      #  return Response(serialized.data)
+    return Response({'description':last_day.description, 'created_at':last_day.created_at})
 @api_view(['POST'])
 def addTopic(request):
     t = Topic(topic=request.data['new_topic'])
@@ -314,3 +333,16 @@ def addTimeStudiedTopic(request):
     if serialized.is_valid():
         return Response({'status':'200', 'data_posted':serialized.data})
     return Response({'status':'500'})
+
+@api_view(['PUT'])
+def updateTimeStudyingTopic(request, id):
+    register = TimeStudyingTopic.objects.get(id=id)
+    print('register')
+    print(register)
+    register.time_in_minutes = 59
+    register.save()
+    #serialized = TimeStudyingTopicSerializer(data=register)
+    #print(serialized.data)  
+    #if serialized.is_valid():
+    return Response({'response':'200'})
+    #)

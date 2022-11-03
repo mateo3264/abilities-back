@@ -19,5 +19,6 @@ urlpatterns = [
     path('add-topic/', views.addTopic, name='add-topic'),
     path('add-time-studied-topic/', views.addTimeStudiedTopic, name='add-time-studied-topic'),
     path('get-time-studied-topic/', views.getStudiedTimeToday, name='get-time-studied-topic'),
+    path('update-time-studied-topic/<int:id>/', views.updateTimeStudyingTopic, name='update-time-studied-topic'),
     
 ]
