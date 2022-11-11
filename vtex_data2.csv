@@ -1,0 +1,64 @@
+ability,answer
+Enumerar 3 tipos de workspaces en vtex,"Development
+Production
+Master"
+Decir si es cierto que cada builder necesita su propio folder en vtex,Sí
+Decir los análogos entre archivos de django y el index.ts y service.json en un proyecto de vtex,index.ts similar a views.py
+Decir qué librería usa vtex para hacer el front,React
+Decir qué tipo de archivo es service.json,de infraestructura
+Explicar cómo añadir un subitem en un item del sidebar de la página admin en vtex,En el folder del builder admin deben haber el archivo routes.json con las configuraciones del item y subitem
+Codificar/imaginar configuraciones para que aparezca un subitem dentro de un item en other section,"{
+   section
+"
+Decir porqué a veces en vtex al tratar de instalar la app desde el toolbelt aparece un error de tipo app_store_contract_not_found,Porqué aun no se han aceptado los términos y condiciones (creo que se aceptan en la app store)
+Decir qué hacer si no se encuentra la app en la app store de vtex,Se va a la página de documentación de vtex io y se busca por su nombre y de ahí se obtiene el formato específico para instalarla desde el toolbelt
+Decir en qué página de vtex se puede encontrar muchas veces las apps disponibles,En la documentación de vtex io
+Decir qué hace el comando vtex list,Lista todas las aplicaciones usadas por la app en desarrollo: Aquellas necesarias para desarrollar sin problemas; aquellas que extienden el funcionamiento (eg facebook pixel) y aquellas linkeadas
+Decir en qué tipo de workspace en vtex se pueden usar las Linked Apps,En development
+Decir qué hacer si en la documentación de vtex io dice que una app se puede instalar desde app store pero buscándola ahí no aparece?,Ir a vtex io de nuevo y extraer de la URL el formato específico de esa app e instarla desde el toolbelt
+Decir qué apps aparecen listadas al crear un nuevo workspace en vtex,Todas las de master
+Decir si las apps instaladas en un workspace se instalan en otro,No
+Numerar pasos para permitir que usuarios en otros workspaces u otras cuentas puedan instalar la app en desarrollo a partir del toolbelt,"Lanzar app: vtex release <major/minor/patch> <beta/stable>
+Publicar app: vtex publish 
+Crear un workspace de tipo production: vtex use <WORKSPACE_NAME> --production
+En este espacio de producción instalar la app: vtex install <VENDOR>.<NAME>@<version> (eg. epicapartnerus.mateo-study-epica-app@0.0.1)
+Validar versión candidata (si es necesario)
+Desplegar app: vtex deploy <VENDOR>.<NAME>@<VERSION>"
+Decir cuándo no se necesita ejecutar el segundo paso para desplegar una app en vtex,"Cuando en el manifest.json está la propiedad ""scripts"":{""postreleasy"":""vtex publish --verbose""}"
+Enumerar prerequisitos para ejecutar el comando vtex release <major/minor/patch> <beta/stable>,"Crear repositorio remoto (en github, bitbucket etc)
+Iniciar control de versiones local (git init)
+No tener cambios pendientes de commit
+Definir la rama remota (git push --set-upstream origin master o git push -u origin master)"
+Cuál es la distribución por defecto de la app en vtex cuando no se establecen los items de la propiedad billingOptions en manifest.json y se publica (vtex publish),Private
+Enumerar los 2 tipos de distribuciones básicas disponibles para una app en vtex,"Public
+Private"
+Enumerar 2 tipos de builders que vtex soporta para construir funcionalidad backend ,"dotnet
+node"
+Decir qué hace un builder en vtex,Transforma los archivos del directorio con el mismo nombre en configuraciones para los servicios competentes
+Decir qué se debe tener en cuenta cuando se usa un VRN para llamar un servicio externo,En {service} se debe poner proxy y en {path} la url completa
+Escribir/Imaginar estructura del VRN en vtex,vrn:{service}:{region}:{account}:{workspace}:{path}
+Decir qué significa la sigla VRN en vtex,Vtex Resource Name
+Decir en qué archivo se asigna una resource-based policy,En service.json
+Explicar cómo crear una role-based policy,"Se crea un policies.json en la root de la app 
+Se define name, description y statements
+statements tiene si se permite o restringe (allow, deny) , las acciones (POST, GET) y los recursos con VRN 
+"
+Enumerar las 2 tipos de policies que se pueden definir en vtex,"role-based
+resource-based"
+Decir que son policies en vtex,Son un conjunto de permisos que se le pueden dar para permitir acceso o denegarlo a recursos o roles
+Enumerar los tipos de apps que se pueden desarrollar en vtex,"storefront apps
+admin apps
+pixel apps
+backend apps"
+Decir qué son una vtex apps,Son apps que extienden la funcionalidad de la plataforma de vtex y son las que se encuentran en la app store de vtex
+Decir qué es el vtex store framework,Es el framework para realizar tiendas usando la plataforma de vtex io y react
+Decir qué tipo de archivo se usa para crear los componentes en el vtex de store framework,json
+Decir qué es un servicio en vtex,Es aquello que la app configura y está encargada de proveer funcionalidad específica a un usuario
+Decir qué tipo de contexto puede ser ctx en ctx.vtex.settings,"ServiceContext
+EventContext"
+Decir si se puede tener más de una app configurando un mismo servicio en vtex,"Sí, se puede tener más de una app configurando un solo servicio"
+Decir qué es cada elemento de una lista de configuraciones en vtex,Es un objeto que tiene las configuraciones de una única app. Por tanto la lista de configuraciones tiene tantos elementos como apps configurando el servicio
+Enumerar las propiedades raíz que tiene cada objeto dentro de la lista de configuraciones en vtex,"name
+declarer"
+decir qué tiene la propiedad name en cada elemento de la lista de configuraciones en vtex,Tiene las configuraciones como fueron definidas en la app service
+Decir qué tiene la propiedad declarer de cada objeto en la lista de configuraciones en vtex,Tiene el nombre completo de la app que hace la configuración

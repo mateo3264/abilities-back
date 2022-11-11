@@ -2,7 +2,7 @@ from django.urls import path
 from . import views 
 
 urlpatterns = [
-    path('<int:id_topic>/', views.getData, name='index'),
+    #path('<str:probability_scheduled_query>/', views.getData, name='index'),
     path('', views.getData, name='index'),
     path('topics/', views.getTopics, name='topics'),
     path('send/', views.getPostData, name='post-data'),

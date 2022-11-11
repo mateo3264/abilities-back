@@ -1,0 +1,64 @@
+id,ability,n_times_reviewed,topic_id,created_at,difficulty,type_id,answer_correctness,days_to_present_again,last_presentation_at,id,answer,ability_id,created_at
+330,Enumerar 3 tipos de workspaces en vtex,4,24,2022-09-02 19:58:07.376939,5,1,,0,2022-10-09 16:50:55.694886,307,"Development
+Production
+Master",330,2022-09-02 19:58:32.326984
+391,Decir si es cierto que cada builder necesita su propio folder en vtex,3,24,2022-09-05 15:20:43.810202,5,1,10,0,2022-10-09 16:50:55.694886,367,Sí,391,2022-09-05 15:20:43.827349
+392,Decir los análogos entre archivos de django y el index.ts y service.json en un proyecto de vtex,2,24,2022-09-05 15:22:15.801229,5,1,,0,2022-10-09 16:50:55.694886,368,index.ts similar a views.py,392,2022-09-05 15:22:15.812809
+393,Decir qué librería usa vtex para hacer el front,3,24,2022-09-05 15:22:51.775885,5,1,5,0,2022-10-09 16:50:55.694886,369,React,393,2022-09-05 15:22:51.793059
+394,Decir qué tipo de archivo es service.json,3,24,2022-09-05 15:23:20.230073,5,1,10,0,2022-10-09 16:50:55.694886,370,de infraestructura,394,2022-09-05 15:23:20.242844
+395,Explicar cómo añadir un subitem en un item del sidebar de la página admin en vtex,2,24,2022-09-05 15:30:50.343872,5,1,,0,2022-10-09 16:50:55.694886,371,En el folder del builder admin deben haber el archivo routes.json con las configuraciones del item y subitem,395,2022-09-05 15:30:50.367493
+396,Codificar/imaginar configuraciones para que aparezca un subitem dentro de un item en other section,2,24,2022-09-05 15:39:38.052044,5,1,,0,2022-10-09 16:50:55.694886,372,"{
+   section
+",396,2022-09-05 15:39:38.082207
+786,Decir porqué a veces en vtex al tratar de instalar la app desde el toolbelt aparece un error de tipo app_store_contract_not_found,1,24,2022-09-29 10:39:58.487896,5,1,10,0,2022-10-09 16:50:55.694886,747,Porqué aun no se han aceptado los términos y condiciones (creo que se aceptan en la app store),786,2022-09-29 10:39:58.504204
+787,Decir qué hacer si no se encuentra la app en la app store de vtex,1,24,2022-09-29 10:42:20.654270,5,1,10,0,2022-10-09 16:50:55.694886,748,Se va a la página de documentación de vtex io y se busca por su nombre y de ahí se obtiene el formato específico para instalarla desde el toolbelt,787,2022-09-29 10:42:20.664786
+788,Decir en qué página de vtex se puede encontrar muchas veces las apps disponibles,1,24,2022-09-29 10:44:01.255880,5,1,10,0,2022-10-09 16:50:55.694886,749,En la documentación de vtex io,788,2022-09-29 10:44:01.274530
+789,Decir qué hace el comando vtex list,1,24,2022-09-29 10:45:49.802433,5,1,10,0,2022-10-09 16:50:55.694886,750,Lista todas las aplicaciones usadas por la app en desarrollo: Aquellas necesarias para desarrollar sin problemas; aquellas que extienden el funcionamiento (eg facebook pixel) y aquellas linkeadas,789,2022-09-29 10:45:49.818688
+790,Decir en qué tipo de workspace en vtex se pueden usar las Linked Apps,1,24,2022-09-29 10:46:34.519200,5,1,10,0,2022-10-09 16:50:55.694886,751,En development,790,2022-09-29 10:46:34.534055
+791,Decir qué hacer si en la documentación de vtex io dice que una app se puede instalar desde app store pero buscándola ahí no aparece?,1,24,2022-09-29 10:47:41.214866,5,1,10,0,2022-10-09 16:50:55.694886,752,Ir a vtex io de nuevo y extraer de la URL el formato específico de esa app e instarla desde el toolbelt,791,2022-09-29 10:47:41.214866
+792,Decir qué apps aparecen listadas al crear un nuevo workspace en vtex,1,24,2022-09-29 10:48:14.864375,5,1,10,0,2022-10-09 16:50:55.694886,753,Todas las de master,792,2022-09-29 10:48:14.896180
+793,Decir si las apps instaladas en un workspace se instalan en otro,1,24,2022-09-29 10:48:42.913594,5,1,10,0,2022-10-09 16:50:55.694886,754,No,793,2022-09-29 10:48:42.937004
+794,Numerar pasos para permitir que usuarios en otros workspaces u otras cuentas puedan instalar la app en desarrollo a partir del toolbelt,1,24,2022-09-29 12:13:41.201837,5,1,5,0,2022-10-09 16:50:55.694886,755,"Lanzar app: vtex release <major/minor/patch> <beta/stable>
+Publicar app: vtex publish 
+Crear un workspace de tipo production: vtex use <WORKSPACE_NAME> --production
+En este espacio de producción instalar la app: vtex install <VENDOR>.<NAME>@<version> (eg. epicapartnerus.mateo-study-epica-app@0.0.1)
+Validar versión candidata (si es necesario)
+Desplegar app: vtex deploy <VENDOR>.<NAME>@<VERSION>",794,2022-09-29 12:13:41.225103
+795,Decir cuándo no se necesita ejecutar el segundo paso para desplegar una app en vtex,1,24,2022-09-29 12:15:30.460379,5,1,7,0,2022-10-09 16:50:55.694886,756,"Cuando en el manifest.json está la propiedad ""scripts"":{""postreleasy"":""vtex publish --verbose""}",795,2022-09-29 12:15:30.470189
+796,Enumerar prerequisitos para ejecutar el comando vtex release <major/minor/patch> <beta/stable>,1,24,2022-09-29 12:18:37.712605,5,1,8,0,2022-10-09 16:50:55.694886,757,"Crear repositorio remoto (en github, bitbucket etc)
+Iniciar control de versiones local (git init)
+No tener cambios pendientes de commit
+Definir la rama remota (git push --set-upstream origin master o git push -u origin master)",796,2022-09-29 12:18:37.727293
+814,Cuál es la distribución por defecto de la app en vtex cuando no se establecen los items de la propiedad billingOptions en manifest.json y se publica (vtex publish),1,24,2022-09-30 17:44:42.236904,5,1,10,0,2022-10-09 16:50:55.694886,775,Private,814,2022-09-30 17:44:42.243574
+815,Enumerar los 2 tipos de distribuciones básicas disponibles para una app en vtex,1,24,2022-09-30 17:50:21.995124,5,1,10,0,2022-10-09 16:50:55.694886,776,"Public
+Private",815,2022-09-30 17:50:22.004817
+1057,Enumerar 2 tipos de builders que vtex soporta para construir funcionalidad backend ,1,24,2022-10-11 12:48:07.504422,5,1,10,1,2022-10-11 12:48:07.504422,1005,"dotnet
+node",1057,2022-10-11 12:48:07.520528
+1069,Decir qué hace un builder en vtex,1,24,2022-10-11 17:59:42.006390,5,1,10,1,2022-10-11 17:59:42.006390,1017,Transforma los archivos del directorio con el mismo nombre en configuraciones para los servicios competentes,1069,2022-10-11 17:59:42.021262
+1077,Decir qué se debe tener en cuenta cuando se usa un VRN para llamar un servicio externo,1,24,2022-10-12 12:24:39.691518,5,1,10,1,2022-10-12 12:24:39.691670,1024,En {service} se debe poner proxy y en {path} la url completa,1077,2022-10-12 12:24:39.715770
+1078,Escribir/Imaginar estructura del VRN en vtex,1,24,2022-10-12 12:35:48.621496,5,1,10,1,2022-10-12 12:35:48.621496,1025,vrn:{service}:{region}:{account}:{workspace}:{path},1078,2022-10-12 12:35:48.647039
+1079,Decir qué significa la sigla VRN en vtex,1,24,2022-10-12 12:36:06.541142,5,1,10,1,2022-10-12 12:36:06.541142,1026,Vtex Resource Name,1079,2022-10-12 12:36:06.578776
+1080,Decir en qué archivo se asigna una resource-based policy,1,24,2022-10-12 12:36:47.668764,5,1,4,0,2022-10-12 12:36:47.668764,1027,En service.json,1080,2022-10-12 12:36:47.696497
+1081,Explicar cómo crear una role-based policy,1,24,2022-10-12 12:39:28.798854,5,1,4,0,2022-10-12 12:39:28.798854,1028,"Se crea un policies.json en la root de la app 
+Se define name, description y statements
+statements tiene si se permite o restringe (allow, deny) , las acciones (POST, GET) y los recursos con VRN 
+",1081,2022-10-12 12:39:28.816503
+1082,Enumerar las 2 tipos de policies que se pueden definir en vtex,1,24,2022-10-12 12:40:48.677325,5,1,10,1,2022-10-12 12:40:48.677325,1029,"role-based
+resource-based",1082,2022-10-12 12:40:48.715417
+1083,Decir que son policies en vtex,1,24,2022-10-12 12:42:26.075670,5,1,6,0,2022-10-12 12:42:26.075670,1030,Son un conjunto de permisos que se le pueden dar para permitir acceso o denegarlo a recursos o roles,1083,2022-10-12 12:42:26.106846
+1084,Enumerar los tipos de apps que se pueden desarrollar en vtex,1,24,2022-10-12 12:43:08.208972,5,1,10,1,2022-10-12 12:43:08.215562,1031,"storefront apps
+admin apps
+pixel apps
+backend apps",1084,2022-10-12 12:43:08.235318
+1085,Decir qué son una vtex apps,1,24,2022-10-12 12:45:24.395267,5,1,10,1,2022-10-12 12:45:24.395267,1032,Son apps que extienden la funcionalidad de la plataforma de vtex y son las que se encuentran en la app store de vtex,1085,2022-10-12 12:45:24.425018
+1086,Decir qué es el vtex store framework,1,24,2022-10-12 12:46:16.224528,5,1,10,1,2022-10-12 12:46:16.224528,1033,Es el framework para realizar tiendas usando la plataforma de vtex io y react,1086,2022-10-12 12:46:16.249275
+1087,Decir qué tipo de archivo se usa para crear los componentes en el vtex de store framework,1,24,2022-10-12 12:47:42.716974,5,1,10,1,2022-10-12 12:47:42.716974,1034,json,1087,2022-10-12 12:47:42.769927
+1088,Decir qué es un servicio en vtex,1,24,2022-10-13 09:42:28.758328,5,1,10,1,2022-10-13 09:42:28.758328,1035,Es aquello que la app configura y está encargada de proveer funcionalidad específica a un usuario,1088,2022-10-13 09:42:28.791267
+1089,Decir qué tipo de contexto puede ser ctx en ctx.vtex.settings,1,24,2022-10-13 09:43:32.239719,5,1,8,1,2022-10-13 09:43:32.239719,1036,"ServiceContext
+EventContext",1089,2022-10-13 09:43:32.264832
+1090,Decir si se puede tener más de una app configurando un mismo servicio en vtex,1,24,2022-10-13 09:44:20.581663,5,1,10,1,2022-10-13 09:44:20.581663,1037,"Sí, se puede tener más de una app configurando un solo servicio",1090,2022-10-13 09:44:20.602463
+1091,Decir qué es cada elemento de una lista de configuraciones en vtex,1,24,2022-10-13 09:45:28.852085,5,1,10,1,2022-10-13 09:45:28.852085,1038,Es un objeto que tiene las configuraciones de una única app. Por tanto la lista de configuraciones tiene tantos elementos como apps configurando el servicio,1091,2022-10-13 09:45:28.871040
+1092,Enumerar las propiedades raíz que tiene cada objeto dentro de la lista de configuraciones en vtex,1,24,2022-10-13 09:46:14.207622,5,1,5,0,2022-10-13 09:46:14.207622,1039,"name
+declarer",1092,2022-10-13 09:46:14.243234
+1093,decir qué tiene la propiedad name en cada elemento de la lista de configuraciones en vtex,0,24,2022-10-13 09:47:03.725505,5,1,,0,2022-10-13 09:47:03.725505,1040,Tiene las configuraciones como fueron definidas en la app service,1093,2022-10-13 09:47:03.744599
+1094,Decir qué tiene la propiedad declarer de cada objeto en la lista de configuraciones en vtex,0,24,2022-10-13 09:47:56.280750,5,1,,0,2022-10-13 09:47:56.280750,1041,Tiene el nombre completo de la app que hace la configuración,1094,2022-10-13 09:47:56.304218

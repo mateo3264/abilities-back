@@ -5,6 +5,13 @@ from django.utils import timezone
 from datetime import timedelta
 import json 
 
+
+#Esta función escoge al azar las habilidades a repasar
+def get_abilities_at_random():
+    print('RRAAAAAAAAAAAAAAANDOOOOOOOOOOOOOOOOOOOOMMMMM')
+    all_abilities = sorted(Ability.objects.all(), key=lambda x:random.random())[:50]
+    return all_abilities
+
 #Esta función escoge un tópico al azar que no haya
 # sido presentado. cuando todos se han presentado, se 
 # empieza desde 0
@@ -99,12 +106,13 @@ def get_abilities_by_schedule():
     #     print(30*'*')
     #     print(a.ability, a.n_times_reviewed, a.difficulty, a.answer_correctness)
 
-def get_abilities_by_schedule2():
+def get_abilities_by_schedule2(union=False):
     fib_seq = string_to_list()
     print('fib_seq')
     print(fib_seq)
     print(type(fib_seq))
     all_abilities = Ability.objects.all().order_by('-created_at', 'days_to_present_again')
+    
     now = timezone.now()#.date()
     ids_of_abilities_to_present = []
     show_unanswered_questions = random.random() < 0.7
@@ -138,8 +146,18 @@ def get_abilities_by_schedule2():
             else:
                 ids_of_abilities_to_present.append(a.id)
 
-    abilities_to_present = Ability.objects.filter(id__in=ids_of_abilities_to_present).order_by('-created_at', 'days_to_present_again')[:50]
-    print(abilities_to_present)
+    
+    if union:
+        abilities_to_present = Ability.objects.filter(id__in=ids_of_abilities_to_present).order_by('-created_at', 'days_to_present_again')[:50//2]
+        #TODO: Optimizar esta linea ('?' parece que es muy lento para big datasets)
+        all_abilities_random =  Ability.objects.all().order_by('?')[0:25]
+        abilities_to_present = abilities_to_present.union(all_abilities_random)
+
+    else:
+        abilities_to_present = Ability.objects.filter(id__in=ids_of_abilities_to_present).order_by('-created_at', 'days_to_present_again')[:50]
+    #print(abilities_to_present)
+    for a in abilities_to_present:
+        print(a.id, a.ability, a.created_at, a.last_presentation_at)
     abilities_to_schedule_history = []
     ##Añade a ScheduleAbilitiesHistory la habilidad presentada
     # try:

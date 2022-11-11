@@ -36,15 +36,28 @@ def getTopics(request):
     return Response(serialized_topics.data)
 
 @api_view(['GET'])
-def getData(request, id_topic=None):
+def getData(request):
     print('timezone.now().date() timedelta(days=3)')
     print(timezone.now().date() + datetime.timedelta(days=3))
     print('timezone.now().time()')
+    print('probability_scheduled_query')
+    probability_scheduled_query = None
+    try:
+        probability_scheduled_query = request.query_params['probability_scheduled_query']#request.GET.get('probability_scheduled_query', 0)
+        probability_scheduled_query = float(probability_scheduled_query)
+        print(probability_scheduled_query)
+    except:
+        pass
     
     #TODO:Aquí va el bandit para elegir entre distintas formas de presentar
     # habilidades
     #db_response = get_topics_at_random_with_memory()
-    db_response = get_abilities_by_schedule2()
+    if not probability_scheduled_query:
+        print('WHYYYYYYYYYYYYYYY')
+        db_response = get_abilities_by_schedule2()
+    else:
+        print('ELSE')
+        db_response = get_abilities_at_random()
     serialized = AbilitySerializer(db_response, many=True)
 
     return Response(serialized.data)
